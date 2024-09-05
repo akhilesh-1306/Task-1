@@ -1,4 +1,6 @@
 import React from 'react';
+import {Link} from "react-router-dom"
+import {ToastContainer} from "react-toastify"
 
 const LandingPage = () => {
   return (
@@ -6,8 +8,8 @@ const LandingPage = () => {
       <h1>Welcome to Our Website</h1>
       <p className="lead">Your one-stop solution for [add your purpose here]</p>
       <div className="mt-4">
-        <a href="/login" className="btn btn-primary me-2">Login</a>
-        <a href="/signup" className="btn btn-secondary">Sign Up</a>
+        <Link to="/login" className="btn btn-primary me-2">Login</Link>
+        <Link to="/signup" className="btn btn-secondary">Sign Up</Link>
       </div>
     </div>
   );

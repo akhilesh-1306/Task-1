@@ -1,4 +1,6 @@
 import React from 'react';
+import {Link} from "react-router-dom"
+import {ToastContainer} from "react-toastify"
 
 const Login = () => {
   return (
@@ -15,6 +17,7 @@ const Login = () => {
                     type="email"
                     className="form-control"
                     id="email"
+                    name='email'
                     placeholder="Enter email"
                   />
                 </div>
@@ -24,13 +27,16 @@ const Login = () => {
                     type="password"
                     className="form-control"
                     id="password"
+                    name='password'
                     placeholder="Enter password"
                   />
                 </div>
                 <button type="submit" className="btn btn-primary w-100">Login</button>
               </form>
+              <ToastContainer/>
               <p className="text-center mt-3">
-                Don't have an account? <a href="/signup">Sign up here</a>.
+                Don't have an account? 
+                <Link to="/signup">Sign up here</Link>.
               </p>
             </div>
           </div>
