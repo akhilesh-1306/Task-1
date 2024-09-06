@@ -35,6 +35,7 @@ const addAvailability = async (req, res) => {
 const getAvailabilities = async (req, res) => {
   try {
     const token = req.headers.authorization;
+    // console.log(token);
 
     if (!token) {
       return res.status(401).json({ message: "No token provided" });
@@ -48,9 +49,10 @@ const getAvailabilities = async (req, res) => {
       return res.status(401).json({ message: "Invalid token" });
     }
 
-    const userId = decodedToken.userId;
-
-    const availabilities = await Availability.find({ user: userId }).sort({ date: 1, startTime: 1 });
+    const userId = decodedToken._id;
+    console.log(userId);
+    const availabilities = await AvailabilityModel.find({ user: userId }).sort({ date: 1, startTime: 1 });
+    // console.log(availabilities);
 
     res.status(200).json({ availabilities });
   } catch (error) {
@@ -59,7 +61,58 @@ const getAvailabilities = async (req, res) => {
   }
 }
 
+const updateAvailabilities = async (req, res) => {
+  try {
+    // const {id} = req.params;
+    const { id, user, date, startTime, endTime } = req.body;
+    console.log("This is indise the updateAvailabilities");
+    console.log(id);
+
+    // Find the availability and check if it belongs to the current user
+    let availability = await AvailabilityModel.findOne({ _id: id});
+
+    if (!availability) {
+      return res.status(404).json({ msg: 'Availability not found or not authorized' });
+    }
+
+    // Update the availability
+    availability.date = date;
+    availability.startTime = startTime;
+    availability.endTime = endTime;
+
+    await availability.save();
+
+    res.json(availability);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+}
+
+const deleteAvailabilities = async (req, res) => {
+  try {
+    const {id}  = req.params;
+
+    // Find the availability and check if it belongs to the current user
+    let availability = await AvailabilityModel.findOne({ _id: id, user: req.user.id });
+
+    if (!availability) {
+      return res.status(404).json({ msg: 'Availability not found or not authorized' });
+    }
+
+    // Delete the availability
+    await AvailabilityModel.findByIdAndRemove(id);
+
+    res.json({ msg: 'Availability removed' });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+}
+
   module.exports = {
     addAvailability,
-    getAvailabilities
+    getAvailabilities,
+    updateAvailabilities,
+    deleteAvailabilities
   }
