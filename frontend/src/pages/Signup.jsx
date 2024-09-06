@@ -36,12 +36,19 @@ const Signup = () => {
         body : JSON.stringify(signupInfo),
       });
       const result = await response.json();
-      const {success,message} = result;
+      const {success,message,error} = result;
       if(success){
         handleSuccess(message);
         setTimeout(()=>{
           navigate("/login")
         },1000)
+      }
+      else if(error){
+        const details = error?.details[0].message;
+        handleError(details);
+      }
+      else if(!success){
+        handleError(message);
       }
     }
     catch(err){
@@ -93,15 +100,6 @@ const Signup = () => {
                     placeholder="Enter password"
                   />
                 </div>
-                {/* <div className="form-group mb-3">
-                  <label htmlFor="confirmPassword">Confirm Password</label>
-                  <input
-                    type="password"
-                    className="form-control"
-                    id="confirmPassword"
-                    placeholder="Confirm password"
-                  />
-                </div> */}
                 <button type="submit" className="btn btn-primary w-100">Sign Up</button>
               </form>
               <ToastContainer/>
