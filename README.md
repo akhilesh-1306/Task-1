@@ -39,7 +39,7 @@ Availability Scheduler is a web application that allows users to manage their av
 3. Create a `.env` file in the backend directory with the following content:
    ```
    PORT=8080
-   MONGODB_URI="mongodb+srv://Akhilesh:ANFJM2749HNDKS637@test.grb8r.mongodb.net/task1?retryWrites=true&w=majority&appName=Test"
+   MONGODB_URI="url"
    JWT_SECRET="secret-12345"
    ```
 
