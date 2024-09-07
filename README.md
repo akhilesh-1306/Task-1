@@ -39,8 +39,8 @@ Availability Scheduler is a web application that allows users to manage their av
 3. Create a `.env` file in the backend directory with the following content:
    ```
    PORT=8080
-   MONGODB_URI=mongodb://localhost:27017/availability_scheduler
-   JWT_SECRET=your_jwt_secret_here
+   MONGODB_URI="mongodb+srv://Akhilesh:ANFJM2749HNDKS637@test.grb8r.mongodb.net/task1?retryWrites=true&w=majority&appName=Test"
+   JWT_SECRET="secret-12345"
    ```
 
 4. Start the backend server:
